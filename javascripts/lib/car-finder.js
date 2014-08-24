@@ -1,102 +1,169 @@
-(function (){
-    var url = 'http://www.carqueryapi.com/api/0.3/?callback=?';
-    var clUrl = 'http://{location}.craigslist.org/search/cta?format=rss&';
-    var cmd = ['getYears', 'getMakes', 'getModels', 'getTrims', 'getModel'];
-    var convert = {
-        psToHp: function (ps) {
-            return (ps / 1.01387).toFixed(2);
-        },
-        hpToPs: function (hp) {
-            return (hp * 1.01387).toFixed(2);
-        },
-        kmToMiles: function (km) {
-            return (km / 1.609347).toFixed(2);
-        },
-        milesToKm: function (miles) {
-            return (miles * 1.609347).toFixed(2);
-        },
-        litersToGallons: function (liters) {
-            return (liters / 3.785412).toFixed(2);
-        },
-        gallonsToLiters: function (gallons) {
-            return (gallons * 3.785412).toFixed(2);
-        },
-        kgTolbs: function (kg) {
-            return (kg / 0.4535924).toFixed(2);
-        },
-        lbsToKg: function (lbs) {
-            return (lbs * 0.4535924).toFixed(2);
-        },
-        nmToPoundFeet: function () {
-            return (nm / 1.355818).toFixed(2);
-        },
-        poundFeetToNm: function () {
-            return (ft * 1.355818).toFixed(2);
+define([
+    'jquery',
+    'handlebars',
+    'lib/convert',
+    'text!templates/menu.tpl'
+], function ($, Handlebars, convert, menuTPL) {
+    'use strict';
+
+    Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+        var operators, result;
+        if (arguments.length < 3) {
+            throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
         }
-    };
-    var params = {
-        body: {
-            values: ['Coupe', 'Sedan', 'SUV', 'Pickup', 'Crossover', 'Minivan', 'Hatchback'],
-            name: 'Body Style'
-        },
-        doors: {
-            values: [],
-            type: 'int',
-            name: 'Doors'
-        },
-        drive: {
-            values: ['Front', 'Rear', 'AWD', '4WD', 'Other'],
-            type: 'checkbox',
-            name: 'Drive Train'
-        },
-        engine_position: {
-            values: ['Front', 'Middle', 'Rear', 'Other'],
-            type: 'checkbox',
-            name: 'Engine Position'
-        },
-        engine_type: {
-            values: ['V', 'in-line', 'W', 'Flat', 'Other'],
-            type: 'checkbox',
-            name: 'Engine Type'
-        },
-        fuel_type: {
-            values: ['Gasoline', 'Diesel', 'Electric', 'Other'],
-            type: 'checkbox',
-            name: 'Fuel Type'
-        },
-        cylinders: {
-            values: ['min_cylinders', 'max_cylinders'],
-            type: 'int',
-            name: 'Cylinders'
-        },
-        years: {
-            values: ['min_year', 'max_year'],
-            type: 'int',
-            min: 1941,
-            name: 'Years'
-        },
-        year: {
-            values: [],
-            min: 1941,
-            type: 'int',
-            name: 'Year'
-        },
-        seats: {
-            values: [],
-            type: 'int',
-            name: 'Seats'
-        },
-        sold_in_us: {
-            values: [0, 1],
-            type: 'radio',
-            name: 'Sold in USA'
-        },
-        keyword: {
-            values: [],
-            type: 'text',
-            name: 'Keywords'
+
+        if (options === undefined) {
+            options = rvalue;
+            rvalue = operator;
+            operator = "===";
         }
-    };
+
+        operators = {
+            '==': function (l, r) { return l == r; },
+            '===': function (l, r) { return l === r; },
+            '!=': function (l, r) { return l != r; },
+            '!==': function (l, r) { return l !== r; },
+            '<': function (l, r) { return l < r; },
+            '>': function (l, r) { return l > r; },
+            '<=': function (l, r) { return l <= r; },
+            '>=': function (l, r) { return l >= r; },
+            'typeof': function (l, r) { return typeof l == r; }
+        };
+
+        if (!operators[operator]) {
+            throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+        }
+
+        result = operators[operator](lvalue, rvalue);
+
+        if (result) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    });
+    Handlebars.registerHelper('indexloop', function(arrayOne, arrayTwo, options) {
+        var ret = '';
+        for (var i = 0; i < arrayOne.length; i++) {
+            ret = ret + options.fn({
+                value: arrayOne[i],
+                label: arrayTwo[i]
+            });
+        };
+
+        return ret;
+    });
+
+    return {
+        url: 'http://www.carqueryapi.com/api/0.3/?callback=?',
+        cmd: ['getYears', 'getMakes', 'getModels', 'getTrims', 'getModel'],
+        params: {
+            fields: [
+                {
+                    values: ['Coupe', 'Sedan', 'SUV', 'Pickup', 'Crossover', 'Minivan', 'Hatchback'],
+                    labels: ['Coupe', 'Sedan', 'SUV', 'Pickup', 'Crossover', 'Minivan', 'Hatchback'],
+                    type: 'checkbox',
+                    input: 'check',
+                    label: 'Body Style',
+                    name: 'body'
+                },
+                {
+                    values: [],
+                    input: 'text',
+                    type: 'number',
+                    label: 'Doors',
+                    name: 'doors'
+                },
+                {
+                    values: ['Front', 'Rear', 'AWD', '4WD'],
+                    labels: ['Front', 'Rear', 'AWD', '4WD'],
+                    type: 'checkbox',
+                    input: 'check',
+                    label: 'Drive Train',
+                    name: 'drive'
+                },
+                {
+                    values: ['Front', 'Middle', 'Rear'],
+                    labels: ['Front', 'Middle', 'Rear'],
+                    type: 'checkbox',
+                    input: 'check',
+                    label: 'Engine Position',
+                    name: 'engine_position'
+                },
+                {
+                    values: ['V', 'in-line', 'W', 'Flat'],
+                    labels: ['V', 'in-line', 'W', 'Flat'],
+                    type: 'checkbox',
+                    input: 'check',
+                    label: 'Engine Type',
+                    name: 'engine_type'
+                },
+                {
+                    values: ['Gasoline', 'Diesel', 'Electric'],
+                    labels: ['Gasoline', 'Diesel', 'Electric'],
+                    type: 'checkbox',
+                    input: 'check',
+                    label: 'Fuel Type',
+                    name: 'fuel_type'
+                },
+                {
+                    values: ['min_cylinders', 'max_cylinders'],
+                    min: 0,
+                    max: 20,
+                    input: 'slider',
+                    type: 'range',
+                    label: 'Cylinders',
+                    name: 'cylinders'
+                },
+                {
+                    values: ['min_year', 'max_year'],
+                    input: 'slider',
+                    type: 'range',
+                    min: 1941,
+                    max: new Date().getFullYear() + 1,
+                    label: 'Years',
+                    name: 'years'
+                },
+                {
+                    values: [],
+                    min: 1941,
+                    input: 'slider',
+                    max: new Date().getFullYear() + 1,
+                    type: 'range',
+                    label: 'Year',
+                    name: 'year'
+                },
+                {
+                    values: [],
+                    input: 'text',
+                    type: 'number',
+                    label: 'Seats',
+                    name: 'seats'
+                },
+                {
+                    values: ['1', '0'],
+                    labels: ['Yes', 'No'],
+                    type: 'radio',
+                    input: 'check',
+                    label: 'Sold in USA',
+                    name: 'sold_in_us'
+                },
+                {
+                    values: [],
+                    input: 'text',
+                    type: 'text',
+                    label: 'Keywords',
+                    name: 'keyword'
+                }
+            ]
+        },
+        buildNavigation: function () {
+            var template = Handlebars.compile(menuTPL);
+            console.log(this.params);
+            $('.finder_options').html(template(this.params));
+        }
+    }
+
 
 });
 

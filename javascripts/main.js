@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     require.config({
-        baseUrl: '/javascripts/',
+        baseUrl: 'javascripts/',
         paths: {
             "jquery": "vendor/jquery.min",
             "handlebars": "vendor/handlebars",
@@ -18,13 +18,10 @@
     });
 
     require([
-        'jquery'
-    ], function ($) {
-
-
-
-
-
-
+        'jquery',
+        'lib/car-finder'
+    ], function ($, carFinder) {
+        carFinder.buildNavigation(); // build navigation options
     });
-} ());
+
+}());
