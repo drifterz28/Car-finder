@@ -2,8 +2,9 @@ define([
     'jquery',
     'handlebars',
     'lib/convert',
+    'lib/car-list-params',
     'text!templates/menu.tpl'
-], function ($, Handlebars, convert, menuTPL) {
+], function ($, Handlebars, convert, params, menuTPL) {
     'use strict';
 
     Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
@@ -55,112 +56,10 @@ define([
     });
 
     return {
-        url: 'http://www.carqueryapi.com/api/0.3/?callback=?',
-        cmd: ['getYears', 'getMakes', 'getModels', 'getTrims', 'getModel'],
-        params: {
-            fields: [
-                {
-                    values: ['Coupe', 'Sedan', 'SUV', 'Pickup', 'Crossover', 'Minivan', 'Hatchback'],
-                    labels: ['Coupe', 'Sedan', 'SUV', 'Pickup', 'Crossover', 'Minivan', 'Hatchback'],
-                    type: 'checkbox',
-                    input: 'check',
-                    label: 'Body Style',
-                    name: 'body'
-                },
-                {
-                    values: [],
-                    input: 'text',
-                    type: 'number',
-                    label: 'Doors',
-                    name: 'doors'
-                },
-                {
-                    values: ['Front', 'Rear', 'AWD', '4WD'],
-                    labels: ['Front', 'Rear', 'AWD', '4WD'],
-                    type: 'checkbox',
-                    input: 'check',
-                    label: 'Drive Train',
-                    name: 'drive'
-                },
-                {
-                    values: ['Front', 'Middle', 'Rear'],
-                    labels: ['Front', 'Middle', 'Rear'],
-                    type: 'checkbox',
-                    input: 'check',
-                    label: 'Engine Position',
-                    name: 'engine_position'
-                },
-                {
-                    values: ['V', 'in-line', 'W', 'Flat'],
-                    labels: ['V', 'in-line', 'W', 'Flat'],
-                    type: 'checkbox',
-                    input: 'check',
-                    label: 'Engine Type',
-                    name: 'engine_type'
-                },
-                {
-                    values: ['Gasoline', 'Diesel', 'Electric'],
-                    labels: ['Gasoline', 'Diesel', 'Electric'],
-                    type: 'checkbox',
-                    input: 'check',
-                    label: 'Fuel Type',
-                    name: 'fuel_type'
-                },
-                {
-                    values: ['min_cylinders', 'max_cylinders'],
-                    min: 0,
-                    max: 20,
-                    input: 'slider',
-                    type: 'range',
-                    label: 'Cylinders',
-                    name: 'cylinders'
-                },
-                {
-                    values: ['min_year', 'max_year'],
-                    input: 'slider',
-                    type: 'range',
-                    min: 1941,
-                    max: new Date().getFullYear() + 1,
-                    label: 'Years',
-                    name: 'years'
-                },
-                {
-                    values: [],
-                    min: 1941,
-                    input: 'slider',
-                    max: new Date().getFullYear() + 1,
-                    type: 'range',
-                    label: 'Year',
-                    name: 'year'
-                },
-                {
-                    values: [],
-                    input: 'text',
-                    type: 'number',
-                    label: 'Seats',
-                    name: 'seats'
-                },
-                {
-                    values: ['1', '0'],
-                    labels: ['Yes', 'No'],
-                    type: 'radio',
-                    input: 'check',
-                    label: 'Sold in USA',
-                    name: 'sold_in_us'
-                },
-                {
-                    values: [],
-                    input: 'text',
-                    type: 'text',
-                    label: 'Keywords',
-                    name: 'keyword'
-                }
-            ]
-        },
         buildNavigation: function () {
             var template = Handlebars.compile(menuTPL);
             console.log(this.params);
-            $('.finder_options').html(template(this.params));
+            $('.finder_options').html(template(params));
         }
     }
 
