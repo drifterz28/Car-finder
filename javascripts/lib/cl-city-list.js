@@ -4,7 +4,8 @@ define([], function () {
     'use strict';
 
     return {
-        url: 'http://geo.craigslist.org/iso/',
+        geo_url: 'http://geo.craigslist.org/iso/',
+        url: '.craigslist.org',
         usa: {
             states: [
                 {
