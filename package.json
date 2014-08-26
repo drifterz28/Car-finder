@@ -1,0 +1,23 @@
+{
+  "name": "Car-finder",
+  "version": "0.0.0",
+  "description": "Car-finder ==========",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/drifterz28/Car-finder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drifterz28/Car-finder/issues"
+  },
+  "homepage": "https://github.com/drifterz28/Car-finder",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "request": "^2.40.0"
+  }
+}
