@@ -16,15 +16,21 @@ function gotHTML(err, resp, html) {
     // get all img tags and loop over them
     var cities = [];
     parsedHTML('#list a').each(function(i, link) {
-        var href = $(link).attr('href');
-        cities.push("'"+href.replace('http://', '').replace('.craigslist.org/', '')+"'");
+        var href = $(link).attr('href').replace('http://', '').replace('.craigslist.org/', '');
+        var text = $(link).text();
+        var output = {
+            city: text,
+            slug: href,
+        }
+        cities.push(JSON.stringify(output));
         //console.log(href.replace('http://', '').replace('.craigslist.org/', ''));
     });
-
-    fs.appendFile('citys.txt', state + ' = [' + cities.join() + '];\n', function (err) {
-        if (err) throw err;
-        //console.log('The "data to append" was appended to file!');
-    });
+    if (cities.length) {
+        fs.appendFile('citys.txt', state + ' = [' + cities.join() + '];\n', function (err) {
+            if (err) throw err;
+            //console.log('The "data to append" was appended to file!');
+        });
+    }
 }
 
 for (var i = states.length - 1; i >= 0; i--) {
