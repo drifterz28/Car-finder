@@ -3,6 +3,7 @@ define([], function () {
 
     return {
         url: 'http://www.carqueryapi.com/api/0.3/?callback=?',
+        short_list: 'full_results=0',
         cmd: ['getYears', 'getMakes', 'getModels', 'getTrims', 'getModel'],
         fields: [
             {
@@ -69,15 +70,6 @@ define([], function () {
                 max: new Date().getFullYear() + 1,
                 label: 'Years',
                 name: 'years'
-            },
-            {
-                values: [],
-                min: 1941,
-                input: 'slider',
-                max: new Date().getFullYear() + 1,
-                type: 'range',
-                label: 'Year',
-                name: 'year'
             },
             {
                 values: [],
@@ -150,6 +142,7 @@ define([], function () {
             {
                 name: 'model_engine_power_ps',
                 label: '',
+                convert: 'psToHp',
             },
             {
                 name: 'model_engine_power_rpm',
@@ -157,7 +150,8 @@ define([], function () {
             },
             {
                 name: 'model_engine_torque_nm',
-                label: '',
+                lable: '',
+                convert: 'nmToPoundFeet',
             },
             {
                 name: 'model_engine_torque_rpm',
@@ -206,6 +200,7 @@ define([], function () {
             {
                 name: 'model_weight_kg',
                 label: '',
+                convert: 'kgToLbs',
             },
             {
                 name: 'model_length_mm',

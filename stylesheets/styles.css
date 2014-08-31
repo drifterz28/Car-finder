@@ -7,6 +7,10 @@ body {
     font-weight:300;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color:#222;
     margin:0 0 20px;
@@ -121,6 +125,7 @@ header li {
     width: 100%;
     float: left;
     display: block;
+    padding-right: 10px;
     border-bottom: 1px solid #d2d2d2;
 }
 
@@ -138,6 +143,14 @@ header ul a {
     text-align:center;
     padding-top:6px;
     height:40px;
+}
+
+.input_number,
+.input_text {
+    width: 100%;
+    margin: 5px;
+    line-height: 27px;
+    padding-left: 5px;
 }
 
 strong {

@@ -8,7 +8,6 @@
             {{/indexloop}}
         {{/compare}}
         {{#compare input "===" "text"}}
-            <label for="field_{{name}}" class="form_{{type}}">{{label}}</label>
             <input id="field_{{name}}" class="input_{{type}}" type="{{type}}" name="{{name}}">
         {{/compare}}
         {{#compare input "===" "slider"}}
