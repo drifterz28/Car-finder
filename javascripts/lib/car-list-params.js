@@ -55,17 +55,17 @@ define([], function () {
             },
             {
                 values: ['min_cylinders', 'max_cylinders'],
-                min: 0,
-                max: 20,
-                input: 'slider',
-                type: 'range',
+                labels: ['Min', 'Max'],
+                input: 'text',
+                type: 'number',
                 label: 'Cylinders',
                 name: 'cylinders'
             },
             {
                 values: ['min_year', 'max_year'],
-                input: 'slider',
-                type: 'range',
+                labels: ['Min', 'Max'],
+                input: 'text',
+                type: 'number',
                 min: 1941,
                 max: new Date().getFullYear() + 1,
                 label: 'Years',

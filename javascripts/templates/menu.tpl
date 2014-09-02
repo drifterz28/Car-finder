@@ -8,12 +8,17 @@
             {{/indexloop}}
         {{/compare}}
         {{#compare input "===" "text"}}
-            <input id="field_{{name}}" class="input_{{type}}" type="{{type}}" name="{{name}}">
-        {{/compare}}
-        {{#compare input "===" "slider"}}
-            <label for="field_{{name}}" class="form_{{type}}">{{label}}</label>
-            <input id="field_{{name}}" class="input_{{type}}" type="{{type}}" {{#if min}}min={{min}} {{/if}}{{#if max}}max={{max}} {{/if}} name="{{name}}">
+            {{#if labels}}
+                {{#indexloop values labels}}
+                    <label class="form_{{../type}}"><input type="{{../type}}" name="{{../name}}" value="{{value}}">{{label}}</label>
+                {{/indexloop}}
+            {{else}}
+                <input id="field_{{name}}" class="input_{{type}}" type="{{type}}" name="{{name}}">
+            {{/if}}
         {{/compare}}
     </li>
     {{/each}}
+    <li>
+        <button class="form_submit" type="submit">Submit</button>
+    </li>
 </ul>
