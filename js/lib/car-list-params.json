@@ -1,0 +1,94 @@
+{
+    "url": "http://www.carqueryapi.com/api/0.3/?callback=?",
+    "short_list": "full_results=0",
+    "cmd": ["getYears", "getMakes", "getModels", "getTrims", "getModel"],
+    "fields": [
+        {
+            "values": ["Coupe", "Sedan", "SUV", "Pickup", "Crossover", "Minivan", "Hatchback", "Van", "Convertible"],
+            "labels": ["Coupe", "Sedan", "SUV", "Pickup", "Crossover", "Minivan", "Hatchback", "Van", "Convertible"],
+            "type": "checkbox",
+            "input": "check",
+            "label": "Body Style",
+            "name": "body"
+        },
+        {
+            "values": [],
+            "input": "text",
+            "type": "number",
+            "label": "Doors",
+            "name": "doors"
+        },
+        {
+            "values": ["Front", "Rear", "AWD", "4WD"],
+            "labels": ["Front", "Rear", "AWD", "4WD"],
+            "type": "checkbox",
+            "input": "check",
+            "label": "Drive Train",
+            "name": "drive"
+        },
+        {
+            "values": ["Front", "Middle", "Rear"],
+            "labels": ["Front", "Middle", "Rear"],
+            "type": "checkbox",
+            "input": "check",
+            "label": "Engine Position",
+            "name": "engine_position"
+        },
+        {
+            "values": ["V", "in-line", "W", "Flat"],
+            "labels": ["V", "in-line", "W", "Flat"],
+            "type": "checkbox",
+            "input": "check",
+            "label": "Engine Type",
+            "name": "engine_type"
+        },
+        {
+            "values": ["Gasoline", "Diesel", "Electric"],
+            "labels": ["Gasoline", "Diesel", "Electric"],
+            "type": "checkbox",
+            "input": "check",
+            "label": "Fuel Type",
+            "name": "fuel_type"
+        },
+        {
+            "values": ["min_cylinders", "max_cylinders"],
+            "labels": ["Min", "Max"],
+            "input": "text",
+            "type": "number",
+            "label": "Cylinders",
+            "name": "cylinders"
+        },
+        {
+            "values": ["min_year", "max_year"],
+            "labels": ["Min", "Max"],
+            "input": "text",
+            "type": "number",
+            "min": 1941,
+            "max": "current",
+            "label": "Years",
+            "name": "years"
+        },
+        {
+            "values": [],
+            "input": "text",
+            "type": "number",
+            "label": "Seats",
+            "name": "seats"
+        },
+        {
+            "values": ["1", "0"],
+            "labels": ["Yes", "No"],
+            "type": "radio",
+            "input": "check",
+            "label": "Sold in USA",
+            "name": "sold_in_us"
+        },
+        {
+            "values": [],
+            "input": "text",
+            "type": "text",
+            "label": "Keywords",
+            "name": "keyword"
+        }
+    ]
+}

@@ -1,37 +1,126 @@
 <!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <title>Car-finder by drifterz28</title>
+<html ng-app="carFinder">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Car-finder by drifterz28</title>
 
-        <link rel="stylesheet" href="stylesheets/styles.css">
-        <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div class="wrapper">
-            <header>
-                <h1>Car-finder</h1>
-                <p>Find the perfect car by engine, drive and other categories</p>
-                <a href="https://github.com/drifterz28/Car-finder">View On <strong>GitHub</strong></a>
-                <form method="post">
-                    <nav class="finder_options"></nav>
-                </form>
-            </header>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body ng-cloak>
+    <div class="fixed">
+        <nav class="top-bar">
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="/">Car Finder</a></h1>
+            </li>
+          </ul>
+
+        <section class="top-bar-section">
+            <ul class="right">
+                <li>Find the perfect car by engine, drive and other categories</li>
+                <li class="divider"></li>
+                <li class="has-form">
+                    <a href="https://github.com/drifterz28/Car-finder" class="small button">View On Github</a>
+                </li>
+            </ul>
+          </section>
+        </nav>
+    </div>
+    <div class="row">
+        <aside class="large-3 medium-4 columns left_column">
+            <form method="post" ng-submit="submit()" ng-controller="finderOptions" class="js-get_car">
+                <nav class="finder_options">
+                    <div class="js-fixed fixed_button">
+                        <button class="form_submit button expand" type="submit">Submit</button>
+                    </div>
+                    <ul>
+                        <li>
+                            <h2>Body Style</h2>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Coupe">Coupe</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Sedan">Sedan</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="SUV">SUV</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Pickup">Pickup</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Crossover">Crossover</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Minivan">Minivan</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Hatchback">Hatchback</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Van">Van</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" value="Convertible">Convertible</label>
+                        </li>
+                        <li>
+                            <h2>Doors</h2>
+                            <input id="field_doors" class="input_number" type="number" name="doors">
+                        </li>
+                        <li>
+                            <h2>Drive Train</h2>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" value="Front">Front</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" value="Rear">Rear</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" value="AWD">AWD</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" value="4WD">4WD</label>
+                        </li>
+                        <li>
+                            <h2>Engine Position</h2>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Front">Front</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Middle">Middle</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Rear">Rear</label>
+                        </li>
+                        <li>
+                            <h2>Engine Type</h2>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="V">V</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="in-line">in-line</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="W">W</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="Flat">Flat</label>
+                        </li>
+                        <li>
+                            <h2>Fuel Type</h2>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Gasoline">Gasoline</label>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Diesel">Diesel</label>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Electric">Electric</label>
+                        </li>
+                        <li>
+                            <h2>Cylinders</h2>
+                            <label for="field_cylinders" class="form_range">Cylinders</label>
+                            <input id="field_cylinders" class="input_range" type="range" max="20" name="cylinders">
+                        </li>
+                        <li>
+                            <h2>Years</h2>
+                            <label for="field_years" class="form_range">Years</label>
+                            <input id="field_years" class="input_range" type="range" min="1941" max="2015" name="years">
+                        </li>
+                        <li>
+                            <h2>Seats</h2>
+                            <input id="field_seats" class="input_number" type="number" name="seats">
+                        </li>
+                        <li>
+                            <h2>Sold in USA</h2>
+                            <label class="form_radio"><input type="radio" name="sold_in_us" value="1" checked>Yes</label>
+                            <label class="form_radio"><input type="radio" name="sold_in_us" value="0">No</label>
+                        </li>
+                        <li>
+                            <h2>Keywords</h2>
+                            <input id="field_keyword" class="input_text" type="text" name="keyword">
+                        </li>
+                    </ul>
+                </nav>
+            </form>
+        </aside>
+        <div class="large-9 medium-8 columns">
             <section class="unit">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- car finder -->
+                <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:728px;height:90px"
                      data-ad-client="ca-pub-4849355483930517"
                      data-ad-slot="1012059742"></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                </script>-->
             </section>
             <section class="car_output">
                 <h1>Car Finder</h1>
@@ -39,25 +128,33 @@
                 <p>Lets say you are looking for a mid 2000's 4 door car with a v8 and turbo? you can even say you would like to have over 300hp and be allwheel drive, with car finder you can do that!</p>
                 <h2>About</h2>
                 <p>I am a car enthusiest that is always looking for a project car or I need to know just the search above and when that perfect car is found I want to connect you with that dream car!</p>
-                
             </section>
             <section class="unit">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- car finder -->
+                <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:728px;height:90px"
                      data-ad-client="ca-pub-4849355483930517"
                      data-ad-slot="1012059742"></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                </script>-->
             </section>
-            <footer>
-                <p>This project is maintained by <a href="https://github.com/drifterz28">drifterz28</a></p>
-                <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-            </footer>
         </div>
-        <script src="javascripts/scale.fix.js"></script>
-        <script data-main="javascripts/main" src="javascripts/vendor/require.js"></script>
-    </body>
+        <footer class="row">
+            <p>This project is maintained by <a href="https://github.com/drifterz28">drifterz28</a></p>
+        </footer>
+    </div>
+
+    <script data-main="js/main" src="js/vendor/angular.js"></script>
+    <script data-main="js/main" src="js/vendor/jquery.min.js"></script>
+    <script data-main="js/main" src="js/main.js"></script>
+    <script>
+        var carFinder = angular.module('carFinder', []);
+        carFinder.controller('finderOptions', ['$scope', function($scope) {
+             $scope.submit = function() {
+                alert('hello');
+           };
+        }]);
+    </script>
+</body>
 </html>
