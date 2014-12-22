@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Car-finder by drifterz28</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <style>
         [ng-cloak] {
@@ -17,26 +17,26 @@
 <body ng-cloak>
     <div class="fixed">
         <nav class="top-bar">
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="/">Car Finder</a></h1>
-            </li>
-          </ul>
-
-        <section class="top-bar-section">
-            <ul class="right">
-                <li>Find the perfect car by engine, drive and other categories</li>
-                <li class="divider"></li>
-                <li class="has-form">
-                    <a href="https://github.com/drifterz28/Car-finder" class="small button">View On Github</a>
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="/">Car Finder</a></h1>
                 </li>
             </ul>
-          </section>
+
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li>Find the perfect car by engine, drive and other categories</li>
+                    <li class="divider"></li>
+                    <li class="has-form">
+                        <a href="https://github.com/drifterz28/Car-finder" class="small button">View On Github</a>
+                    </li>
+                </ul>
+            </section>
         </nav>
     </div>
-    <div class="row">
+    <div class="row" ng-controller="FinderOptionsController">
         <aside class="large-3 medium-4 columns left_column">
-            <form method="post" ng-submit="submit()" ng-controller="finderOptions" class="js-get_car">
+            <form method="post" ng-submit="submit()" class="js-get_car">
                 <nav class="finder_options">
                     <div class="js-fixed fixed_button">
                         <button class="form_submit button expand" type="submit">Submit</button>
@@ -44,68 +44,72 @@
                     <ul>
                         <li>
                             <h2>Body Style</h2>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Coupe">Coupe</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Sedan">Sedan</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="SUV">SUV</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Pickup">Pickup</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Crossover">Crossover</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Minivan">Minivan</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Hatchback">Hatchback</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Van">Van</label>
-                            <label class="form_checkbox"><input type="checkbox" name="body" value="Convertible">Convertible</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Coupe">Coupe</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Sedan">Sedan</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.SUV">SUV</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Pickup">Pickup</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Crossover">Crossover</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Minivan">Minivan</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Hatchback">Hatchback</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Van">Van</label>
+                            <label class="form_checkbox"><input type="checkbox" name="body" ng-model="formData.body_obj.Convertible">Convertible</label>
                         </li>
                         <li>
                             <h2>Doors</h2>
-                            <input id="field_doors" class="input_number" type="number" name="doors">
+                            <input ng-model="formData.doors" id="field_doors" class="input_number" type="number" name="doors">
                         </li>
                         <li>
                             <h2>Drive Train</h2>
-                            <label class="form_checkbox"><input type="checkbox" name="drive" value="Front">Front</label>
-                            <label class="form_checkbox"><input type="checkbox" name="drive" value="Rear">Rear</label>
-                            <label class="form_checkbox"><input type="checkbox" name="drive" value="AWD">AWD</label>
-                            <label class="form_checkbox"><input type="checkbox" name="drive" value="4WD">4WD</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" ng-model="formData.drive_obj.Front">Front</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" ng-model="formData.drive_obj.Rear">Rear</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" ng-model="formData.drive_obj.AWD">AWD</label>
+                            <label class="form_checkbox"><input type="checkbox" name="drive" ng-model="formData.drive_obj['4WD']">4WD</label>
                         </li>
                         <li>
                             <h2>Engine Position</h2>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Front">Front</label>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Middle">Middle</label>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_position" value="Rear">Rear</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" ng-model="formData.engine_postion_obj.Front">Front</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" ng-model="formData.engine_postion_obj.Middle">Middle</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_position" ng-model="formData.engine_postion_obj.Rear">Rear</label>
                         </li>
                         <li>
                             <h2>Engine Type</h2>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="V">V</label>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="in-line">in-line</label>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="W">W</label>
-                            <label class="form_checkbox"><input type="checkbox" name="engine_type" value="Flat">Flat</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" ng-model="formData.engine_type_obj.V">V</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" ng-model="formData.engine_type_obj['in-line']">in-line</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" ng-model="formData.engine_type_obj.W">W</label>
+                            <label class="form_checkbox"><input type="checkbox" name="engine_type" ng-model="formData.engine_type_obj.Flat">Flat</label>
                         </li>
                         <li>
                             <h2>Fuel Type</h2>
-                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Gasoline">Gasoline</label>
-                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Diesel">Diesel</label>
-                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" value="Electric">Electric</label>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" ng-model="formData.fuel_type_obj.Gasoline">Gasoline</label>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" ng-model="formData.fuel_type_obj.Diesel">Diesel</label>
+                            <label class="form_checkbox"><input type="checkbox" name="fuel_type" ng-model="formData.fuel_type_obj.Electric">Electric</label>
                         </li>
                         <li>
                             <h2>Cylinders</h2>
                             <label for="field_cylinders" class="form_range">Cylinders</label>
-                            <input id="field_cylinders" class="input_range" type="range" max="20" name="cylinders">
+                            <input id="field_cylinders" ng-model="formData.cyliders" class="input_range" type="number" max="20" name="cylinders">
                         </li>
                         <li>
                             <h2>Years</h2>
-                            <label for="field_years" class="form_range">Years</label>
-                            <input id="field_years" class="input_range" type="range" min="1941" max="2015" name="years">
+                            <label for="field_year_min" class="form_range">Year min
+                                <input id="field_year_min" ng-model="formData.years_min" class="" type="number" min="1941" max="2015" name="years_min">
+                            </label>
+                            <label for="field_year_max" class="form_range">Year max
+                                <input id="field_year_max" class="" ng-model="formData.years_max" type="number" min="1942" max="2015" name="years_max">
+                            </label>
                         </li>
                         <li>
                             <h2>Seats</h2>
-                            <input id="field_seats" class="input_number" type="number" name="seats">
+                            <input id="field_seats" class="input_number" ng-model="formData.seats" type="number" name="seats">
                         </li>
                         <li>
                             <h2>Sold in USA</h2>
-                            <label class="form_radio"><input type="radio" name="sold_in_us" value="1" checked>Yes</label>
-                            <label class="form_radio"><input type="radio" name="sold_in_us" value="0">No</label>
+                            <label class="form_radio"><input ng-model="formData.sold_in_us" type="radio" name="sold_in_us" value="1">Yes</label>
+                            <label class="form_radio"><input ng-model="formData.sold_in_us" type="radio" name="sold_in_us" value="2">No</label>
                         </li>
                         <li>
                             <h2>Keywords</h2>
-                            <input id="field_keyword" class="input_text" type="text" name="keyword">
+                            <input ng-model="formData.keyword" id="field_keyword" class="input_text" type="text" name="keyword">
                         </li>
                     </ul>
                 </nav>
@@ -123,6 +127,10 @@
                 </script>-->
             </section>
             <section class="car_output">
+                <p>Total number of Cars found: {{cars.length}}</p>
+                <div class="car_info" ng-repeat="car in cars">
+                    {{car.make_display}}
+                </div>
                 <h1>Car Finder</h1>
                 <p>Car finder is a tool to help find that perfect car, Car finder is not like any other online tool in that you will be looking for specifics about the perfect car!</p>
                 <p>Lets say you are looking for a mid 2000's 4 door car with a v8 and turbo? you can even say you would like to have over 300hp and be allwheel drive, with car finder you can do that!</p>
@@ -148,13 +156,5 @@
     <script data-main="js/main" src="js/vendor/angular.js"></script>
     <script data-main="js/main" src="js/vendor/jquery.min.js"></script>
     <script data-main="js/main" src="js/main.js"></script>
-    <script>
-        var carFinder = angular.module('carFinder', []);
-        carFinder.controller('finderOptions', ['$scope', function($scope) {
-             $scope.submit = function() {
-                alert('hello');
-           };
-        }]);
-    </script>
 </body>
 </html>

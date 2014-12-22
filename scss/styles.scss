@@ -1,5 +1,5 @@
 @import 'vendor/foundation';
-//sass --watch scss/styles.scss:stylesheets/styles.css --sourcemap
+//sass --watch scss/styles.scss:css/styles.css --sourcemap
 
 ul {
     margin-left: 0;
@@ -8,6 +8,10 @@ ul {
 
 body {
     padding-top: 50px;
+}
+
+.logo {
+
 }
 
 .form_checkbox,
