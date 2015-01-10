@@ -9,9 +9,8 @@ $(function () {
             $('.js-fixed').removeClass('fixed').css({'margin-top': '-40px'});
         }
     });
-
-
 });
+
 var carFinder = angular.module('carFinder', []);
 carFinder.controller('FinderOptionsController', function($scope, $http) {
 
@@ -41,6 +40,10 @@ carFinder.controller('FinderOptionsController', function($scope, $http) {
         });
         console.log($scope.formData)
         $http.jsonp('http://www.carqueryapi.com/api/0.3/?callback=JSON_CALLBACK', {params: $scope.formData}).success(function(data) {
+            function compare(a, b) {
+                return (a.model_make_id < b.model_make_id) ? -1 : 1;
+            }
+            data.Trims.sort(compare);
             console.log(data.Trims);
             $scope.cars = data.Trims;
         });

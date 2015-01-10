@@ -126,11 +126,13 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>-->
             </section>
-            <section class="car_output">
+            <section ng-show="cars" class="ng-hide car_output">
                 <p>Total number of Cars found: {{cars.length}}</p>
                 <div class="car_info" ng-repeat="car in cars">
                     {{car.make_display}}
                 </div>
+            </section>
+            <section ng-hide="cars" class="about">
                 <h1>Car Finder</h1>
                 <p>Car finder is a tool to help find that perfect car, Car finder is not like any other online tool in that you will be looking for specifics about the perfect car!</p>
                 <p>Lets say you are looking for a mid 2000's 4 door car with a v8 and turbo? you can even say you would like to have over 300hp and be allwheel drive, with car finder you can do that!</p>

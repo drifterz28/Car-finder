@@ -6066,6 +6066,9 @@ ul {
 body {
   padding-top: 50px; }
 
+.ng-hide {
+  display: none !important; }
+
 .form_checkbox,
 .form_radio {
   margin-left: 10px; }
