@@ -130,6 +130,14 @@
                 <p>Total number of Cars found: {{cars.length}}</p>
                 <div class="car_info" ng-repeat="car in cars">
                     {{car.make_display}}
+                     {{car.model_trim}}
+                     {{car.model_year}}<br>
+                    Doors: {{car.model_doors}}<br>
+                    Drive: {{car.model_drive}}<br>
+                    Engine: {{car.model_engine_type}}
+                    {{car.model_engine_cyl}}
+                     {{car.model_engine_fuel}}<br>
+                    Engine location: {{car.model_engine_position}}<br>
                 </div>
             </section>
             <section ng-hide="cars" class="about">

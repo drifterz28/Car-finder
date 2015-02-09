@@ -18,17 +18,16 @@ carFinder.controller('FinderOptionsController', function($scope, $http) {
         "sold_in_us": "1",
         "cmd": "getTrims"
     };
+
     var req = {
         method: 'GET',
         url: 'http://www.carqueryapi.com/api/0.3/',
         data: ''
     };
+
     $scope.submit = function() {
         angular.forEach($scope.formData, function(value, key) {
-            //this.push(key + ': ' + value);
             if(angular.isObject(value)) {
-                //var key_update = key.replace('_obj', '');
-                //$scope.formData[key_update] = [];
                 var value_array = []
                 angular.forEach(value, function (new_value, new_key) {
                     if(new_value) {
@@ -38,7 +37,8 @@ carFinder.controller('FinderOptionsController', function($scope, $http) {
                 $scope.formData[key.replace('_obj', '')] = value_array.join(',');
             }
         });
-        console.log($scope.formData)
+        console.log($scope.formData);
+
         $http.jsonp('http://www.carqueryapi.com/api/0.3/?callback=JSON_CALLBACK', {params: $scope.formData}).success(function(data) {
             function compare(a, b) {
                 return (a.model_make_id < b.model_make_id) ? -1 : 1;
@@ -48,4 +48,5 @@ carFinder.controller('FinderOptionsController', function($scope, $http) {
             $scope.cars = data.Trims;
         });
     };
+
 });
